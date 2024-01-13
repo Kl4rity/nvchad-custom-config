@@ -32,7 +32,6 @@ local get_lombok_javaagent = function()
 end
 
 local lombok_jar_path = get_lombok_javaagent()
-print(lombok_jar_path)
 
 -- if y u just want default config for the servers then put them in a table
 local servers = { "html", "cssls", "tsserver", "clangd", "jdtls" }
