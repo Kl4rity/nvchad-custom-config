@@ -5,6 +5,13 @@ local M = {}
 local highlights = require "custom.highlights"
 
 M.ui = {
+  statusline = {
+    verriden_modules = function(modules)
+      table.insert(modules, 1, function()
+        return vim.fn.expand "%f"
+      end)
+    end,
+  },
   theme = "aquarium",
   theme_toggle = { "aquarium", "one_light" },
 

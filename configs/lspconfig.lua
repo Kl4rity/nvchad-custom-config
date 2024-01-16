@@ -34,7 +34,7 @@ end
 local lombok_jar_path = get_lombok_javaagent()
 
 -- if y u just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd", "jdtls" }
+local servers = { "html", "cssls", "tsserver", "clangd", "jdtls", "pylsp" }
 
 for _, lsp in ipairs(servers) do
   if lsp == "jdtls" then
