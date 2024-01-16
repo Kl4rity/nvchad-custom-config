@@ -3,32 +3,32 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
 
-local home_dir = os.getenv('HOME')
+local home_dir = os.getenv "HOME"
 local fn = vim.fn
 
 local is_file_exist = function(path)
-  local f = io.open(path, 'r')
+  local f = io.open(path, "r")
   return f ~= nil and io.close(f)
 end
 
 local get_lombok_javaagent = function()
-  local lombok_dir = home_dir..'/.m2/repository/org/projectlombok/lombok/'
+  local lombok_dir = home_dir .. "/.m2/repository/org/projectlombok/lombok/"
   local lombok_versions = io.popen('ls -1 "' .. lombok_dir .. '" | sort -r')
   if lombok_versions ~= nil then
-        local lb_i, lb_versions = 0, {}
+    local lb_i, lb_versions = 0, {}
     for lb_version in lombok_versions:lines() do
       lb_i = lb_i + 1
       lb_versions[lb_i] = lb_version
     end
     lombok_versions:close()
     if next(lb_versions) ~= nil then
-          local lombok_jar = fn.expand(string.format('%s%s/*.jar', lombok_dir, lb_versions[1]))
+      local lombok_jar = fn.expand(string.format("%s%s/*.jar", lombok_dir, lb_versions[1]))
       if is_file_exist(lombok_jar) then
-            return string.format('--jvm-arg=-javaagent:%s', lombok_jar)
-        end
+        return string.format("--jvm-arg=-javaagent:%s", lombok_jar)
+      end
     end
   end
-  return ''
+  return ""
 end
 
 local lombok_jar_path = get_lombok_javaagent()
@@ -42,7 +42,22 @@ for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = {"jdtls", lombok_jar_path},
+      cmd = { "jdtls", lombok_jar_path },
+    }
+  elseif lsp == "pylsp" then
+    lspconfig[lsp].setup {
+      settings = {
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              maxLineLength = 200,
+            },
+            flake8 = {
+              maxLineLength = 200,
+            },
+          },
+        },
+      },
     }
   else
     -- Default configuration for other LSP servers
@@ -52,4 +67,3 @@ for _, lsp in ipairs(servers) do
     }
   end
 end
-
