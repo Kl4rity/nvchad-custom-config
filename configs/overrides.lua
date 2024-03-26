@@ -56,11 +56,7 @@ M.mason = {
     "yamllint",
     "dockerfile-language-server",
 
-    -- rust
-    "rust-analyzer",
-
     -- go
-    "golangci-lint-langserver",
     "go-debug-adapter",
     "gopls"
   },

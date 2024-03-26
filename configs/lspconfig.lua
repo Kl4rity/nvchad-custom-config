@@ -1,5 +1,6 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
+local utils = require("lspconfig/util")
 
 local lspconfig = require "lspconfig"
 
@@ -34,7 +35,7 @@ end
 local lombok_jar_path = get_lombok_javaagent()
 
 -- if y u just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "tsserver", "clangd", "jdtls", "pylsp" }
+local servers = { "html", "cssls", "tsserver", "clangd", "jdtls", "pylsp", "gopls" }
 
 for _, lsp in ipairs(servers) do
   if lsp == "jdtls" then
