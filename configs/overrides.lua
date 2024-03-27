@@ -44,7 +44,6 @@ M.mason = {
     "chrome-debug-adapter",
     "node-debug2-adapter",
 
-
     -- python
     "python-lsp-server",
 

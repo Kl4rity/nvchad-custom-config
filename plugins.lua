@@ -56,6 +56,12 @@ local plugins = {
   },
 
   {
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    ft = { 'rust' },
+  },
+
+  {
     "mfussenegger/nvim-dap",
     lazy = true,
     dependencies = {
